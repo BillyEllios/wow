@@ -1,3 +1,3 @@
 # WOW
 
-Ceci est un poulet, ignorez moi
+Ceci est autre chose, ignorez moi
