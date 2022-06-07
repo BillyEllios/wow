@@ -25,9 +25,17 @@ class Race
     #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'races')]
     private $classes;
 
+    #[ORM\OneToMany(mappedBy: 'races', targetEntity: Personnage::class)]
+    private $personnages;
+
+    #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'races')]
+    private $classees;
+
     public function __construct()
     {
         $this->classes = new ArrayCollection();
+        $this->personnages = new ArrayCollection();
+        $this->classees = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,6 +89,63 @@ class Race
     {
         if ($this->classes->removeElement($class)) {
             $class->removeRace($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Personnage>
+     */
+    public function getPersonnages(): Collection
+    {
+        return $this->personnages;
+    }
+
+    public function addPersonnage(Personnage $personnage): self
+    {
+        if (!$this->personnages->contains($personnage)) {
+            $this->personnages[] = $personnage;
+            $personnage->setRaces($this);
+        }
+
+        return $this;
+    }
+
+    public function removePersonnage(Personnage $personnage): self
+    {
+        if ($this->personnages->removeElement($personnage)) {
+            // set the owning side to null (unless already changed)
+            if ($personnage->getRaces() === $this) {
+                $personnage->setRaces(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Classe>
+     */
+    public function getClassees(): Collection
+    {
+        return $this->classees;
+    }
+
+    public function addClassee(Classe $classee): self
+    {
+        if (!$this->classees->contains($classee)) {
+            $this->classees[] = $classee;
+            $classee->addRace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassee(Classe $classee): self
+    {
+        if ($this->classees->removeElement($classee)) {
+            $classee->removeRace($this);
         }
 
         return $this;

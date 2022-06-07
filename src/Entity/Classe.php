@@ -21,6 +21,12 @@ class Classe
     #[ORM\Column(type: 'string', length: 32)]
     private $name;
 
+    #[ORM\OneToMany(mappedBy: 'classes', targetEntity: Personnage::class)]
+    private $personnages;
+
+    #[ORM\ManyToMany(targetEntity: Race::class, inversedBy: 'classees')]
+    private $races;
+
 
     public function __construct()
     {
@@ -94,6 +100,36 @@ class Classe
     public function removeRace(Race $race): self
     {
         $this->races->removeElement($race);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Personnage>
+     */
+    public function getPersonnages(): Collection
+    {
+        return $this->personnages;
+    }
+
+    public function addPersonnage(Personnage $personnage): self
+    {
+        if (!$this->personnages->contains($personnage)) {
+            $this->personnages[] = $personnage;
+            $personnage->setClasses($this);
+        }
+
+        return $this;
+    }
+
+    public function removePersonnage(Personnage $personnage): self
+    {
+        if ($this->personnages->removeElement($personnage)) {
+            // set the owning side to null (unless already changed)
+            if ($personnage->getClasses() === $this) {
+                $personnage->setClasses(null);
+            }
+        }
 
         return $this;
     }

@@ -21,6 +21,13 @@ class Personnage
     #[ORM\Column(type: 'string', length: 32)]
     private $pseudo;
 
+    #[ORM\ManyToOne(targetEntity: Race::class, inversedBy: 'personnages')]
+    private $races;
+
+    #[ORM\ManyToOne(targetEntity: Classe::class, inversedBy: 'personnages')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $classes;
+
     public function __construct()
     {
         $this->armes = new ArrayCollection();
@@ -69,6 +76,30 @@ class Personnage
     public function setPseudo(string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getRaces(): ?Race
+    {
+        return $this->races;
+    }
+
+    public function setRaces(?Race $races): self
+    {
+        $this->races = $races;
+
+        return $this;
+    }
+
+    public function getClasses(): ?Classe
+    {
+        return $this->classes;
+    }
+
+    public function setClasses(?Classe $classes): self
+    {
+        $this->classes = $classes;
 
         return $this;
     }
