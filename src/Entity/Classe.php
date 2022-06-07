@@ -27,6 +27,10 @@ class Classe
     #[ORM\ManyToMany(targetEntity: Race::class, inversedBy: 'classees')]
     private $races;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     public function __construct()
     {
@@ -38,6 +42,12 @@ class Classe
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): ?self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -116,7 +126,7 @@ class Classe
     {
         if (!$this->personnages->contains($personnage)) {
             $this->personnages[] = $personnage;
-            $personnage->setClasses($this);
+            $personnage->setClasse($this);
         }
 
         return $this;
@@ -126,8 +136,8 @@ class Classe
     {
         if ($this->personnages->removeElement($personnage)) {
             // set the owning side to null (unless already changed)
-            if ($personnage->getClasses() === $this) {
-                $personnage->setClasses(null);
+            if ($personnage->getClasse() === $this) {
+                $personnage->setClasse(null);
             }
         }
 

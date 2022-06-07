@@ -22,10 +22,15 @@ class Personnage
     private $pseudo;
 
     #[ORM\ManyToOne(targetEntity: Race::class, inversedBy: 'personnages')]
-    private $races;
+    private $race;
 
     #[ORM\ManyToOne(targetEntity: Classe::class, inversedBy: 'personnages')]
-    private $classes;
+    private $classe;
+
+    public function __toString()
+    {
+        return $this->pseudo;
+    }
 
     public function __construct()
     {
@@ -35,6 +40,12 @@ class Personnage
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): ?self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -79,27 +90,32 @@ class Personnage
         return $this;
     }
 
-    public function getRaces(): ?Race
+    public function getRace(): ?Race
     {
-        return $this->races;
+        return $this->race;
     }
 
-    public function setRaces(?Race $races): self
+    public function setRace(?Race $race): self
     {
-        $this->races = $races;
+        $this->race = $race;
 
         return $this;
     }
 
-    public function getClasses(): ?Classe
+    public function getClasse(): ?Classe
     {
-        return $this->classes;
+        return $this->classe;
     }
 
-    public function setClasses(?Classe $classes): self
+    public function setClasse(?Classe $classe): self
     {
-        $this->classes = $classes;
+        $this->classe = $classe;
 
         return $this;
+    }
+
+    public function getFaction(): ?Faction
+    {
+        return $this->race->getFaction();
     }
 }

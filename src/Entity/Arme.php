@@ -37,6 +37,12 @@ class Arme
         return $this->id;
     }
 
+    public function setId(int $id): ?self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     /**
      * @return Collection<int, Classe>
      */

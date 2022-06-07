@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Personnage;
+use App\Services\RaceService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -13,6 +14,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class PersonnageCrudController extends AbstractCrudController
 {
+    public function __construct(private RaceService $raceService) {
+
+    }
+
     public static function getEntityFqcn(): string
     {
         return Personnage::class;
@@ -29,6 +34,12 @@ class PersonnageCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('pseudo'),
+            AssociationField::new('classe'),
+            AssociationField::new('race'),
+            AssociationField::new('race', 'Faction')
+                ->formatValue(function ($race) {
+                    return $this->raceService->getFromName($race)->getFaction()->__toString();
+                })
         ];
     }
 }

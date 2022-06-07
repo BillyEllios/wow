@@ -31,6 +31,11 @@ class Race
     #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'races')]
     private $classees;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->classes = new ArrayCollection();
@@ -41,6 +46,12 @@ class Race
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): ?self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getFaction(): ?Faction
@@ -106,7 +117,7 @@ class Race
     {
         if (!$this->personnages->contains($personnage)) {
             $this->personnages[] = $personnage;
-            $personnage->setRaces($this);
+            $personnage->setRace($this);
         }
 
         return $this;
@@ -116,8 +127,8 @@ class Race
     {
         if ($this->personnages->removeElement($personnage)) {
             // set the owning side to null (unless already changed)
-            if ($personnage->getRaces() === $this) {
-                $personnage->setRaces(null);
+            if ($personnage->getRace() === $this) {
+                $personnage->setRace(null);
             }
         }
 
