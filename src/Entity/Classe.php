@@ -24,9 +24,6 @@ class Classe
     #[ORM\OneToMany(mappedBy: 'classes', targetEntity: Personnage::class)]
     private $personnages;
 
-    #[ORM\ManyToMany(targetEntity: Race::class, inversedBy: 'classees')]
-    private $races;
-
     public function __toString()
     {
         return $this->name;
@@ -85,31 +82,6 @@ class Classe
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-   
-    /**
-     * @return Collection<int, Race>
-     */
-    public function getRaces(): Collection
-    {
-        return $this->races;
-    }
-
-    public function addRace(Race $race): self
-    {
-        if (!$this->races->contains($race)) {
-            $this->races[] = $race;
-        }
-
-        return $this;
-    }
-
-    public function removeRace(Race $race): self
-    {
-        $this->races->removeElement($race);
 
         return $this;
     }

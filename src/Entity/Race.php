@@ -28,9 +28,6 @@ class Race
     #[ORM\OneToMany(mappedBy: 'races', targetEntity: Personnage::class)]
     private $personnages;
 
-    #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'races')]
-    private $classees;
-
     public function __toString()
     {
         return $this->name;
@@ -130,33 +127,6 @@ class Race
             if ($personnage->getRace() === $this) {
                 $personnage->setRace(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Classe>
-     */
-    public function getClassees(): Collection
-    {
-        return $this->classees;
-    }
-
-    public function addClassee(Classe $classee): self
-    {
-        if (!$this->classees->contains($classee)) {
-            $this->classees[] = $classee;
-            $classee->addRace($this);
-        }
-
-        return $this;
-    }
-
-    public function removeClassee(Classe $classee): self
-    {
-        if ($this->classees->removeElement($classee)) {
-            $classee->removeRace($this);
         }
 
         return $this;
