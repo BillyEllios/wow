@@ -25,7 +25,6 @@ class Personnage
     private $races;
 
     #[ORM\ManyToOne(targetEntity: Classe::class, inversedBy: 'personnages')]
-    #[ORM\JoinColumn(nullable: false)]
     private $classes;
 
     public function __construct()
