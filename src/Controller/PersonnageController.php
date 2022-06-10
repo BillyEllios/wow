@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Repository\ClasseRepository;
+use App\Repository\FactionRepository;
 use App\Repository\PersonnageRepository;
 use App\Repository\RaceRepository;
+use App\Repository\ArmeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PersonnageController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $em, private ClasseRepository $classeRepository, private RaceRepository $raceRepository,private PersonnageRepository $personnageRepository)
+    public function __construct(private EntityManagerInterface $em,private ArmeRepository $armeRepository, private FactionRepository $factionRepository, private ClasseRepository $classeRepository, private RaceRepository $raceRepository,private PersonnageRepository $personnageRepository)
     {
 
     }
@@ -38,9 +40,36 @@ class PersonnageController extends AbstractController
     #[Route('/countFaction/{faction_id}', name: 'app_personnage_faction', methods: ['GET'])]
     public function countFaction($faction_id): Response
     {
-        $faction = $this->raceRepository->find(['id' => $faction_id]);
-        $persos = $this->personnageRepository->findBy(['faction' => $faction]);
+        $faction = $this->factionRepository->find($faction_id);
+        $races = $this->raceRepository->findBy(['faction' => $faction]);
 
-        return $this->json(['count' => count($persos)]);
+        $persos = [];
+        foreach( $races as $race) {
+            $persos = array_merge($persos, $this->personnageRepository->findBy(['race' => $race]));
+        }
+
+        $infos = [];
+        foreach( $persos as $perso) {
+            $info = [];
+            $info['pseudo'] = $perso->getPseudo();
+            $info['race'] = $perso->getRace()->getName();
+            $info['faction'] = $perso->getRace()->getFaction()->getName();
+            $infos[] = $info;
+        }
+
+        return $this->json($infos);
+    }
+
+    #[Route('/tradeArme/{perso1_id}/{perso2_id}/{arme_id}/', name:'app_personnage_trade', methods: ['GET'])]
+    public function tradeArme($perso1_id, $perso2_id, $arme_id): Response
+    {
+        $perso1 = $this->personnageRepository->findOneBy(['id' => $perso1_id]);
+        $perso2 = $this->personnageRepository->findOneBy(['id' => $perso2_id]);
+        $arme = $this->armeRepository->findOneBy(['id' => $arme_id]);
+
+        $perso1->removeArme($arme);
+        $perso2->addArme($arme);
+        
+        return $this->json($arme->getPersonnage()->getPseudo());
     }
 }
