@@ -14,9 +14,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PersonnageController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $em,private ArmeRepository $armeRepository, private FactionRepository $factionRepository, private ClasseRepository $classeRepository, private RaceRepository $raceRepository,private PersonnageRepository $personnageRepository)
+    public function __construct(private EntityManagerInterface $em,
+    private ArmeRepository $armeRepository, 
+    private FactionRepository $factionRepository, 
+    private ClasseRepository $classeRepository, 
+    private RaceRepository $raceRepository,
+    private PersonnageRepository $personnageRepository)
     {
 
+    }
+
+    #[Route('/personnage', name: 'ap_personnage_index')]
+    public function index(): Response
+    {
+        $user = 'thierry';
+        return $this->render('personnage/index.html.twig', [
+            'controller_name' => $user,
+        ]);
     }
 
     #[Route('/countRace/{race_id}', name: 'app_personnage_race', methods: ['GET'])]

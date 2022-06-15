@@ -18,7 +18,7 @@ class FactionFixtures extends Fixture {
     {
         $faction = [];
         $factions = ['Alliance','Horde'];
-        for ($i=0; $i<2; $i++) {
+        for ($i=0; $i<count($factions); $i++) {
             $faction[] = (new Faction())
             ->setName($factions[$i]);
         }

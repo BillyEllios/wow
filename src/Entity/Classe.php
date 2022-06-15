@@ -15,14 +15,17 @@ class Classe
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToMany(targetEntity: Arme::class, mappedBy: 'classes')]
-    private $armes;
-
     #[ORM\Column(type: 'string', length: 32)]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'classes', targetEntity: Personnage::class)]
+    #[ORM\ManyToMany(targetEntity: Arme::class, mappedBy: 'classes')]
+    private $armes;
+
+    #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Personnage::class)]
     private $personnages;
+
+    #[ORM\ManyToMany(targetEntity: Race::class, inversedBy: 'classes')]
+    private $races;
 
     public function __toString()
     {
@@ -112,6 +115,30 @@ class Classe
                 $personnage->setClasse(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Race>
+     */
+    public function getRaces(): Collection
+    {
+        return $this->races;
+    }
+
+    public function addRace(Race $race): self
+    {
+        if (!$this->races->contains($race)) {
+            $this->races[] = $race;
+        }
+
+        return $this;
+    }
+
+    public function removeRace(Race $race): self
+    {
+        $this->races->removeElement($race);
 
         return $this;
     }

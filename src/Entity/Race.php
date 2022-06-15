@@ -15,18 +15,18 @@ class Race
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Faction::class, inversedBy: 'races')]
+    #[ORM\ManyToOne(targetEntity: Faction::class, inversedBy: 'race')]
     #[ORM\JoinColumn(nullable: false)]
     private $faction;
 
     #[ORM\Column(type: 'string', length: 32)]
     private $name;
 
+    #[ORM\OneToMany(mappedBy: 'race', targetEntity: Personnage::class)]
+    private $personnages;
+
     #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'races')]
     private $classes;
-
-    #[ORM\OneToMany(mappedBy: 'races', targetEntity: Personnage::class)]
-    private $personnages;
 
     public function __toString()
     {
@@ -76,33 +76,6 @@ class Race
     }
 
     /**
-     * @return Collection<int, Classe>
-     */
-    public function getClasses(): Collection
-    {
-        return $this->classes;
-    }
-
-    public function addClass(Classe $class): self
-    {
-        if (!$this->classes->contains($class)) {
-            $this->classes[] = $class;
-            $class->addRace($this);
-        }
-
-        return $this;
-    }
-
-    public function removeClass(Classe $class): self
-    {
-        if ($this->classes->removeElement($class)) {
-            $class->removeRace($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Personnage>
      */
     public function getPersonnages(): Collection
@@ -127,6 +100,33 @@ class Race
             if ($personnage->getRace() === $this) {
                 $personnage->setRace(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Classe>
+     */
+    public function getClasses(): Collection
+    {
+        return $this->classes;
+    }
+
+    public function addClass(Classe $class): self
+    {
+        if (!$this->classes->contains($class)) {
+            $this->classes[] = $class;
+            $class->addRace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClass(Classe $class): self
+    {
+        if ($this->classes->removeElement($class)) {
+            $class->removeRace($this);
         }
 
         return $this;

@@ -11,7 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ArmeController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $em,private PersonnageRepository $personnageRepository,private ArmeRepository $armeRepository) {
+    public function __construct(private EntityManagerInterface $em,
+    private PersonnageRepository $personnageRepository,
+    private ArmeRepository $armeRepository) 
+    {
     }
 
     #[Route('/setArme/{personnage_id}/{arme_id}', name: 'app_personnage_index', methods: ['GET'])]

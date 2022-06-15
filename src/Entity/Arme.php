@@ -27,6 +27,11 @@ class Arme
     #[ORM\Column(type: 'string', length: 32)]
     private $type;
 
+   public function __toString()
+   {
+       return $this->name;
+   }
+
     public function __construct()
     {
         $this->classes = new ArrayCollection();

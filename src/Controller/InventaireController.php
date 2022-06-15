@@ -10,7 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class InventaireController extends AbstractController
 {   
-    public function __construct(private EntityManagerInterface $em, private PersonnageRepository $personnageRepository)
+    public function __construct(private EntityManagerInterface $em, 
+    private PersonnageRepository $personnageRepository)
     {
         
     }

@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -39,7 +40,9 @@ class PersonnageCrudController extends AbstractCrudController
             AssociationField::new('race', 'Faction')
                 ->formatValue(function ($race) {
                     return $this->raceService->getFromName($race)->getFaction()->__toString();
-                })
+                }),
+            AssociationField::new('armes'),
+            CollectionField::new('armes')
         ];
     }
 }

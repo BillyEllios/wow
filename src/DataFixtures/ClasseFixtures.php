@@ -17,8 +17,7 @@ class ClasseFixtures extends Fixture {
     {
         $classe = [];
         $classes = ['Guerrier','Paladin','Chasseur','Voleur','Prêtre','Chaman','Mage','Démoniste','Moine','Druide','Chasseur de démons','Chevalier de la mort'];
-
-        for ($i=0; $i<12; $i++) {
+        for ($i=0; $i<count($classes); $i++) {
             $classe[] = (new Classe())
             ->setName($classes[$i]);
         }

@@ -29,10 +29,10 @@ class PersonnageFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        $personnage = [];
-        for ($i=0; $i<15; $i++) {
+        $personnages = PersonnageService::N_PERSONNAGE;
+        for ($i=0;$i<count($personnages);$i++) {
             $personnage[] = (new Personnage())
-                ->setPseudo($this->personnageService->getPersonnage())
+                ->setPseudo($personnages[$i])
                 ->setClasse($this->classeService->getClasse())
                 ->setRace($this->raceService->getRace());
         }
