@@ -7,6 +7,7 @@ use App\Services\RaceService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
@@ -28,6 +29,15 @@ class PersonnageCrudController extends AbstractCrudController
     {
         return $actions
         ->add(Crud::PAGE_INDEX, Action::DETAIL);
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('race')
+            ->add('classe')
+            ->add('armes')
+        ;
     }
 
     public function configureFields(string $pageName): iterable
