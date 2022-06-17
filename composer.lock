@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5c72270e2d49222d6b14717cb2f711b",
+    "content-hash": "fb9a2442265a1063a34ffb46700ae19d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1377,16 +1377,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v4.2.3",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "e571633c2560a09c68e03f8e3c0a5906894f1498"
+                "reference": "7d699c6cc8fb38d9998c945ca8b0de2ee7e6161c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/e571633c2560a09c68e03f8e3c0a5906894f1498",
-                "reference": "e571633c2560a09c68e03f8e3c0a5906894f1498",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/7d699c6cc8fb38d9998c945ca8b0de2ee7e6161c",
+                "reference": "7d699c6cc8fb38d9998c945ca8b0de2ee7e6161c",
                 "shasum": ""
             },
             "require": {
@@ -1453,7 +1453,7 @@
             ],
             "support": {
                 "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.2.3"
+                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.3.1"
             },
             "funding": [
                 {
@@ -1461,7 +1461,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-05-25T18:41:55+00:00"
+            "time": "2022-06-15T18:25:19+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -3646,16 +3646,16 @@
         },
         {
             "name": "symfony/form",
-            "version": "v6.1.0",
+            "version": "v6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/form.git",
-                "reference": "e7099cea21ab6151eda0004495d39d985704f165"
+                "reference": "630eed7b1282f18a8399a0a2b3fb71c44266b73a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/form/zipball/e7099cea21ab6151eda0004495d39d985704f165",
-                "reference": "e7099cea21ab6151eda0004495d39d985704f165",
+                "url": "https://api.github.com/repos/symfony/form/zipball/630eed7b1282f18a8399a0a2b3fb71c44266b73a",
+                "reference": "630eed7b1282f18a8399a0a2b3fb71c44266b73a",
                 "shasum": ""
             },
             "require": {
@@ -3728,7 +3728,7 @@
             "description": "Allows to easily create, process and reuse HTML forms",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/form/tree/v6.1.0"
+                "source": "https://github.com/symfony/form/tree/v6.1.1"
             },
             "funding": [
                 {
@@ -3744,7 +3744,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-21T21:16:03+00:00"
+            "time": "2022-06-09T12:51:38+00:00"
         },
         {
             "name": "symfony/framework-bundle",
