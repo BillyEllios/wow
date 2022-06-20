@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220617132046 extends AbstractMigration
+final class Version20220620130007 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,6 +25,7 @@ final class Version20220617132046 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE faction_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE personnage_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE race_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE "user_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE arme (id INT NOT NULL, personnage_id INT DEFAULT NULL, name VARCHAR(32) NOT NULL, type VARCHAR(32) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_182073795E315342 ON arme (personnage_id)');
         $this->addSql('CREATE TABLE arme_classe (arme_id INT NOT NULL, classe_id INT NOT NULL, PRIMARY KEY(arme_id, classe_id))');
@@ -40,6 +41,8 @@ final class Version20220617132046 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_6AEA486D8F5EA509 ON personnage (classe_id)');
         $this->addSql('CREATE TABLE race (id INT NOT NULL, faction_id INT NOT NULL, name VARCHAR(32) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_DA6FBBAF4448F8DA ON race (faction_id)');
+        $this->addSql('CREATE TABLE "user" (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, is_verified BOOLEAN NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON "user" (email)');
         $this->addSql('CREATE TABLE messenger_messages (id BIGSERIAL NOT NULL, body TEXT NOT NULL, headers TEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, available_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, delivered_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_75EA56E0FB7336F0 ON messenger_messages (queue_name)');
         $this->addSql('CREATE INDEX IDX_75EA56E0E3BD61CE ON messenger_messages (available_at)');
@@ -79,6 +82,7 @@ final class Version20220617132046 extends AbstractMigration
         $this->addSql('DROP SEQUENCE faction_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE personnage_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE race_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE "user_id_seq" CASCADE');
         $this->addSql('DROP TABLE arme');
         $this->addSql('DROP TABLE arme_classe');
         $this->addSql('DROP TABLE classe');
@@ -86,6 +90,7 @@ final class Version20220617132046 extends AbstractMigration
         $this->addSql('DROP TABLE faction');
         $this->addSql('DROP TABLE personnage');
         $this->addSql('DROP TABLE race');
+        $this->addSql('DROP TABLE "user"');
         $this->addSql('DROP TABLE messenger_messages');
     }
 }
