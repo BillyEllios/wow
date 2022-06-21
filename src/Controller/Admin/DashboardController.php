@@ -7,6 +7,7 @@ use App\Entity\Classe;
 use App\Entity\Faction;
 use App\Entity\Personnage;
 use App\Entity\Race;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -56,6 +57,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::section('Entities', 'fa fa-hat-wizard');
 
+        yield MenuItem::linkToCrud('User', 'fa fa-title-text', User::class);
         yield MenuItem::linkToCrud('Faction', 'fa fa-title-text', Faction::class);
         yield MenuItem::linkToCrud('Classe', 'fa fa-cauldron', Classe::class);     
         yield MenuItem::linkToCrud('Race', 'fa fa-title-text', Race::class);
