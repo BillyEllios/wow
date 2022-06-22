@@ -31,6 +31,7 @@ class UserCrudController extends AbstractCrudController
                 ->renderExpanded();
             yield ImageField::new('avatar')
                 ->setBasePath('uploads/avatars')
-                ->setUploadDir('public/avatars/uploads');
+                ->setUploadDir('public/avatars/uploads')
+                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]');
     }
 }
