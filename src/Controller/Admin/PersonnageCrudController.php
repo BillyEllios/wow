@@ -4,8 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Personnage;
 use App\Services\RaceService;
-use App\Utils\EasyAdminExtension\Field\TableField;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Utils\EasyAdminExtension\Field\TableField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -14,12 +14,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Factory\EntityFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use PhpParser\ErrorHandler\Collecting;
 
-class PersonnageCrudController extends AbstractCrudController 
+
+class PersonnageCrudController extends AbstractCrudController
 {
     public function __construct(
         private RaceService $raceService, 
@@ -39,12 +38,6 @@ class PersonnageCrudController extends AbstractCrudController
             $responseParameters, 
             $this->entityManager, 
             $this->entityFactory);
-    }
-
-    public function configureActions(Actions $actions): Actions
-    {
-        return $actions
-        ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -74,8 +67,7 @@ class PersonnageCrudController extends AbstractCrudController
                     TextField::new('type')
                 ])
                 ->setActions(Actions::new()
-                    ->add(Crud::PAGE_DETAIL, Action::EDIT)
-                    ->add(Crud::PAGE_DETAIL, Action::DETAIL))
+                    ->add(Crud::PAGE_DETAIL, Action::EDIT))
         ];
     }
 }

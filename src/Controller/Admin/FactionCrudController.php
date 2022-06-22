@@ -19,10 +19,11 @@ class FactionCrudController extends AbstractCrudController
         return Faction::class;
     }
 
+    //Enleve le show du CRUD
     public function configureActions(Actions $actions): Actions
     {
-        return $actions
-        ->add(Crud::PAGE_INDEX, Action::DETAIL);
+        return parent::configureActions($actions)
+            ->disable(Action::DETAIL);
     }
 
     public function configureFields(string $pageName): iterable

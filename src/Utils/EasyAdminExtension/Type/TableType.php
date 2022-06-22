@@ -31,7 +31,7 @@ class TableType extends AbstractType
         $resolver->setDefaults([
             'disabled' => true,
             'entitiesCollection' => new ArrayCollection(),
-            'globalActions' => (new ActionCollection([]))->all(),
+            'globalActions' => ActionCollection::new([])->all(),
             'modalDeleteContent' => '',
             'modalDeleteTitle' => ''
         ]);
