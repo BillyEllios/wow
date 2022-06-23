@@ -51,23 +51,25 @@ class PersonnageCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('pseudo'),
-            AssociationField::new('classe'),
-            AssociationField::new('race'),
-            AssociationField::new('race', 'Faction')
-                ->formatValue(function ($race) {
-                    return $this->raceService->getFromName($race)->getFaction()->__toString();
-                }),
-            AssociationField::new('armes'),
-            TableField::new('armes')
-                ->setFields([
-                    TextField::new('name'),
-                    TextField::new('type')
-                ])
-                ->setActions(Actions::new()
-                    ->add(Crud::PAGE_DETAIL, Action::EDIT))
-        ];
+        yield IdField::new('id')
+            ->hideOnForm();
+        yield TextField::new('pseudo');
+        yield AssociationField::new('classe');
+        yield AssociationField::new('race');
+        yield AssociationField::new('race', 'Faction')
+            ->formatValue(function ($race) {
+                return $this->raceService->getFromName($race)->getFaction()->__toString();
+            });
+        yield AssociationField::new('armes');
+        yield TableField::new('armes')
+            ->hideOnIndex()
+            ->setFields([
+                TextField::new('name'),
+                TextField::new('type')
+            ])
+            ->setActions(Actions::new()
+                ->add(Crud::PAGE_EDIT, Action::INDEX)
+                ->add(Crud::PAGE_EDIT, Action::DELETE)
+                ->add(Crud::PAGE_EDIT, Action::DETAIL));
     }
 }
