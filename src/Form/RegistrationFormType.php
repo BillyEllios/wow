@@ -2,7 +2,8 @@
 
 namespace App\Form;
 
-use Symfony\Component\Validator\Constraints\File;
+use App\Entity\User;
+use Doctrine\DBAL\Types\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,23 +19,6 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('avatar', FileType::class, [
-                'label' => 'Avatar (JPEG file)',
-
-                'mapped' => false,
-
-                'required' => false,
-
-                'constraint' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'applications/jpeg'
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid Jpeg avatar',
-                    ])
-                    ],
-                ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
